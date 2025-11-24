@@ -42,8 +42,6 @@ Data are available in the corresponding Figshare repository.
 | `tasks_matched_with_ai_patent_keywords_alicpc.csv`    | Tasks Matched to AI Related Patents | `data/processed`   |
 | `finalized_gpt_response....`    | GPT respones for mental, collaborative, and unpredictable classification of Whole Tasks (file name indicates the characteristics) | `data/processed/GPT_Whole_Tasks`   |
 | `finalized_gpt_response....`    | GPT respones for mental, collaborative, and unpredictable classification of Representative Tasks(file name indicates the characteristics_ | `data/processed/GPT_VS_Human`   |
-| `ai_related_patents_cosine_similarity_task.npy`    | Cosine Similarity Between Tasks and Best Matched AI Patent | `data/processed/Embeddings`   |
-| `ai_patents_matched_id.npy`    | AI Patent ID Matched to Tasks | `data/processed/Embeddings`   |
 | `consolidating_tasks.csv`    | Tasks Classified as Impacted by Consolidating Tasks | `data/processed/ClassifiedTasks`   |
 | `disruptive_tasks.csv`    | Tasks Classified as Impacted by Disruptive Tasks | `data/processed/ClassifiedTasks`   |
 
