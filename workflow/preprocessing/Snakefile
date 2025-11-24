@@ -1,0 +1,37 @@
+from os.path import join as j
+import itertools
+import os
+
+# Raw data
+DATA_DIR = "../../data/"
+ORIGINAL_NETWORK = j(DATA_DIR, "raw/citation_net_iu.npz") # Original Citation Network
+META_DATA = j(DATA_DIR, "raw/paper_table.csv")
+PATENT_META_DATA = j(DATA_DIR, "raw/paper_table.csv") # This is from IU
+
+# Output data
+DISRUPTION = j(DATA_DIR, "derived/disruption.npy") # Disruption Index
+PATENT_EMBEDDING = j(DATA_DIR, "derived/patent_embedding.npy") # Disruption Index
+
+rule all:
+    input: 
+        DISRUPTION
+
+
+rule calculating_disruption:
+    """calculating disruption"""
+    input:
+        net=ORIGINAL_NETWORK,
+    output:
+        DISRUPTION
+    shell:
+        "python3 scripts/Disruption.py 'disruption' 'in' 'out' {input.net} {output} 'nodevice'"
+
+
+rule calculating_emedding:
+    """calculating embedding of patent"""
+    input:
+        net=ORIGINAL_NETWORK,
+    output:
+        PATENT_EMBEDDING
+    shell:
+        "python3 scripts/embedding.py"

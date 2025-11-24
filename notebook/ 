@@ -1,0 +1,22 @@
+Community_Number,Community_Size,Task_Title,Degree,Sector,Job Title,Task ID
+0,82,"Schedule or dispatch workers, work crews, equipment, or service vehicles to appropriate locations, according to customer requests, specifications, or needs, using radios or telephones.",49,Transportation and warehousing,"Dispatchers, Except Police, Fire, and Ambulance",2723
+0,82,"Schedule or monitor air or surface pickup, delivery, or distribution of products or materials.",47,,Storage and Distribution Managers,3294
+0,82,"Develop storage and distribution models that include factors such as warehouse locations, customer locations, or available transportation modes to maximize operational efficiency or sustainability.",44,,Storage and Distribution Managers,19512
+0,82,"Develop or implement plans for storage and distribution activities that emphasize technological solutions for sustainability, such as investment in smart or eco-friendly containers, dynamic distribution networks, warehouse renovations, or fuel efficient fleets.",40,,Storage and Distribution Managers,19511
+1,81,"Manipulate controls, levers, and valves to start pumps, auxiliary equipment, or conveyors, and to adjust equipment positions, speeds, timing, and material flows.",62,Manufacturing,Conveyor Operators and Tenders,10746
+1,81,"Install, program, or repair programmable controllers, robot controllers, end-of-arm tools, or conveyors.",62,,Robotics Technicians,16593
+1,81,"Move levers, depress foot pedals, and turn dials to operate power machinery, such as power shovels, stripping shovels, scraper loaders, or backhoes.",60,Construction,Excavating and Loading Machine and Dragline Operators,12777
+1,81,"Load, unload, or identify building materials, machinery, or tools, distributing them to the appropriate locations, according to project plans or specifications.",59,Construction,Construction Laborers,11462
+2,91,"Examine patients using equipment, such as radiograph (x-ray) machines or fluoroscopes, to determine the nature and extent of disorder or injury.",81,,Urologists,17294
+2,91,"Order diagnostic imaging procedures such as radiographs (x-rays), ultrasounds, mammograms, and bone densitometry tests, or refer patients to other health professionals for these procedures.",80,,Naturopathic Physicians,18407
+2,91,"Operate diagnostic equipment, such as radiographic or ultrasound equipment, and interpret the resulting images.",79,"Professional, Scientific and Technical Services",Veterinarians,4110
+2,91,"Perform or evaluate the results of diagnostic tests, such as radiographs (x-rays) and electrocardiograms (EKGs).",78,,Nurse Anesthetists,18360
+2,91,"Operate x-ray, electrocardiogram (EKG), or other equipment to administer routine diagnostic tests.",77,Health care and social assistance,Medical Assistants,2043
+5,54,"Manipulate and enhance scanned or digital images to create desired effects, using computers and specialized software.",36,,Photographers,9352
+5,54,"Create computer models of patterns or parts, using modeling software.",33,Manufacturing,"Patternmakers, Metal and Plastic",21025
+5,54,"Present information in audio-visual or interactive formats, using computers, television, audio-visual aids, or other equipment, materials, or technologies.",29,Education services,"Special Education Teachers, Preschool",19081
+4,79,"Inspect fire, intruder detection, or other security systems.",65,,Security Management Specialists,15917
+4,79,"Operate testing equipment, such as heat stress meters, octave band analyzers, motion analysis equipment, inclinometers, light meters, thermoanemometers, sling psychrometers, or colorimetric detection tubes.",64,,Human Factors Engineers and Ergonomists,16384
+4,79,"Inspect and test malfunctioning medical or related equipment, following manufacturers' specifications and using test and analysis instruments.",63,Health care and social assistance,Medical Equipment Repairers,3061
+4,79,"Locate malfunctions in brakes, motors, switches, and signal and control systems, using test equipment.",63,,Elevator Installers and Repairers,11566
+3,10,"Perform various cash handling tasks, such as collecting payments, making bank deposits, or managing petty cash.",9,,"Switchboard Operators, Including Answering Service",20432

@@ -1,0 +1,121 @@
+from os.path import join as j
+import itertools
+import os
+
+## Configuration
+#configfile: "../../data/Playground"
+
+# Raw data
+DATA_DIR = "../../data/Playground"
+
+ORIGINAL_NETWORK = j(DATA_DIR, "raw/citation_net_iu.npz")
+META_DATA = j(DATA_DIR, "raw/paper_table.csv")
+
+RANDOMIZED_NETWORK = j(DATA_DIR, "derived/randomized_citation_network/randomized{random_number}_citation_net_iu.npz")
+
+
+
+RANDOMIZED_COMBINATIONS = j(DATA_DIR, "derived/randomized_citation_net_ref_cpc_combs/randomized{random_number}_citation_ref_cpc_combinations.pkl")
+
+RANDOMIZED_COMBINATIONS_FREQUENCY = j(DATA_DIR, "derived/randomized_citation_net_ref_cpc_combs_frequency/randomized{random_number}_citation_ref_cpc_combinations_frequency.pkl")
+
+
+PATENT_ID_YEAR_DICT = j(DATA_DIR, "derived/patent_id_year_dict.pkl")
+
+PAPER_ID_PATENT_ID_DICT = j(DATA_DIR, "derived/paper_id_patent_id_dict.pkl")
+PATENT_ID_CPC_DICT = j(DATA_DIR, "derived/patent_id_cpc_dict.pkl")
+PAPER_ID_YEAR_DICT = j(DATA_DIR, "derived/paper_id_year_dict.pkl")
+
+ORIGINAL_CITATION_REFERENCE_CPC_COMB_LIST = j(DATA_DIR, "derived/original_citation_reference_cpc_comb.pkl")
+
+ORIGINAL_CPC_COMB_YEAR_FREQ = j(DATA_DIR, "derived/original_citation_reference_cpc_comb_frequency.pkl")
+RANDOMIZED_CPC_COMB_YEAR_FOLDER = j(DATA_DIR, "derived/randomized_citation_net_ref_cpc_combs_frequency")
+CHECKED_RANDOMIZED_CPC_COMB_YEAR_FOLDER = j(DATA_DIR, "derived/randomized_citation_net_ref_cpc_combs_frequency/complete.txt")
+
+ORIGINAL_COMBINATIONS_ZCORE_YEAR = j(DATA_DIR, "derived/original_cpccodes_year_zscore.pkl")
+
+NOVELTY_FINAL = j(DATA_DIR, "result/Novelty.pkl")
+
+RANDOM_SEED = list(range(20))
+TEMP_RANDOM_SEED = list(range(10))
+
+
+rule all:
+    input: 
+        NOVELTY_FINAL
+
+
+rule randomize_keeping_agegap_citation_network:
+    """generating a random citation newtork"""
+    input:
+        net=ORIGINAL_NETWORK,
+        meta=META_DATA,
+    params:
+        Name="{random_number}"
+    output:
+        RANDOMIZED_NETWORK,
+    shell:
+        "python3 randomizing_network.py {input.net} {input.meta} {output}"
+
+rule cpc_combinations_randomized_citations:
+    """generating cpc combinations of the references in the randomized citations"""
+    input:
+        net=RANDOMIZED_NETWORK,
+        paper_patent = PAPER_ID_PATENT_ID_DICT,
+        cpc = PATENT_ID_CPC_DICT,
+        paper_year = PAPER_ID_YEAR_DICT
+    output:
+        RANDOMIZED_COMBINATIONS,
+    shell:
+        "python3 Novelty_make_ref_comb.py {input.paper_patent} {input.cpc} {input.paper_year} {input.net} {output}"
+
+rule cpc_combinations_frequency_randomized_citations:
+    """generating the frequency of each cpc combination of the references in the randomized citations"""
+    input:
+        comb=RANDOMIZED_COMBINATIONS,
+        patent_year = PATENT_ID_YEAR_DICT
+    params:
+        Number = "{random_number}"
+    output:
+       RANDOMIZED_COMBINATIONS_FREQUENCY,
+    shell:
+        "python3 Novelty_randomized_statistics.py {input.patent_year} {input.comb} {output}"
+
+
+checkpoint cpc_combinations_frequency_randomized_citations_finish:
+    input:
+        expand(
+            RANDOMIZED_COMBINATIONS_FREQUENCY,
+            random_number=RANDOM_SEED
+        )
+    output:
+        CHECKED_RANDOMIZED_CPC_COMB_YEAR_FOLDER
+    shell:
+        "touch {output}"
+
+
+rule cpc_combinations_zscore:
+    """generating the z-score of each cpc combinations in different years"""
+    input:
+        original_cpc_freq = ORIGINAL_CPC_COMB_YEAR_FREQ,
+        completion_marker = CHECKED_RANDOMIZED_CPC_COMB_YEAR_FOLDER
+    params:
+        randomized_freq_folder= RANDOMIZED_CPC_COMB_YEAR_FOLDER,
+    output:
+       ORIGINAL_COMBINATIONS_ZCORE_YEAR
+    shell:
+        "python3 Novelty_zscore.py {params.randomized_freq_folder} {input.original_cpc_freq} {output}"
+
+
+rule calculating_novelty:
+    """generating dictionary {patent_id: {"median": z-score media, "10th": z-score 10th percentile}}"""
+    input:
+        cpc_codes_zscore = ORIGINAL_COMBINATIONS_ZCORE_YEAR,
+        cpc_combination_reference_list =  ORIGINAL_CITATION_REFERENCE_CPC_COMB_LIST,
+        patent_id_year = PATENT_ID_YEAR_DICT 
+    output:
+       NOVELTY_FINAL
+    shell:
+        "python3 Novelty.py {input.cpc_codes_zscore} {input.cpc_combination_reference_list} {input.patent_id_year} {output}"
+
+
