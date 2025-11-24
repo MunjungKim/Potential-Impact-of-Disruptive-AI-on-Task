@@ -33,6 +33,7 @@ codes including plotting figures and generating null model
 
 # Data
 
+Data are available in the corresponding Figshare repository.
 
 
 | **File Name**                           | **Description**                                                 | **Location**             |
